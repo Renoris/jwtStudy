@@ -9,13 +9,12 @@ import org.springframework.test.web.servlet.ResultActions;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@WebMvcTest(LoginControllerTest.class)
+@WebMvcTest(LoginController.class)
 public class LoginControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
-    @Test
     public void 로그인컨트롤러에접근했을때_401_인증오류를_받아야한다() throws Exception {
         //given
         String url = "/api/login";
@@ -25,6 +24,17 @@ public class LoginControllerTest {
 
         //then
         rs.andExpect(status().isUnauthorized());
+    }
 
+    @Test
+    public void 허용된_로그인_컨트롤러에_접근했을때_200_status를받을수_있어야한다() throws Exception {
+        //given
+        String url = "/api/login";
+
+        //when
+        ResultActions rs = mockMvc.perform(get(url));
+
+        //then
+        rs.andExpect(status().isOk());
     }
 }
