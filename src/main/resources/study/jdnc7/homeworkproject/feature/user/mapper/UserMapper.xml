@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.jdnc7.homeworkproject.feature.user.mapper">
+    <select id="findByIdToUserDto" resultType="UserDto">
+        select USER_ID, USER_NAME, NICK_NAME FROM "USER" WHERE USER_ID = #{id};
+    </select>
+
+    <insert id="insert" parameterType="User">
+        INSERT INTO "USER" (USER_NAME, PASSWORD, NICK_NAME, ACTIVATED) VALUE (
+            #{userName}, #{password}, #{nickName}, 1
+        );
+    </insert>
+
+    <update id="deactivate" parameterType="Long">
+        update "USER" set ACTIVATED = 0 where USER_ID = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from "USER" where USER_ID = #{id}
+    </delete>
+</mapper>

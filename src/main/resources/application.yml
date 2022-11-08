@@ -12,3 +12,6 @@ spring:
   sql:
     init:
       mode: always
+
+mybatis:
+  config-location: classpath:/mybatis-config.xml
