@@ -3,7 +3,7 @@ drop table if exists "USER";
 drop table if exists AUTHORITY;
 
 
-CREATE TABLE "USER" (USER_ID BIGINT auto_increment primary key , USERNAME varchar(50) unique, PASSWORD varchar(100), NICKNAME varchar(50), ACTIVATED int);
+CREATE TABLE "USER" (USER_ID BIGINT auto_increment primary key , USER_NAME varchar(50) unique, PASSWORD varchar(100), NICK_NAME varchar(50), ACTIVATED TINYINT);
 CREATE TABLE AUTHORITY (AUTHORITY_NAME varchar(50) primary key);
 CREATE TABLE USER_AUTHORITY (USER_ID BIGINT, AUTHORITY_NAME varchar(50),
     FOREIGN KEY (USER_ID) REFERENCES "USER" ON DELETE CASCADE,
