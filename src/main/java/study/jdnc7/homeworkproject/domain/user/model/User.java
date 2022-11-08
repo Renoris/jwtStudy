@@ -1,4 +1,4 @@
-package study.jdnc7.homeworkproject.domain.user;
+package study.jdnc7.homeworkproject.domain.user.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
