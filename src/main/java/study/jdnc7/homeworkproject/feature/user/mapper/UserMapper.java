@@ -6,6 +6,7 @@ import study.jdnc7.homeworkproject.feature.user.model.UserDto;
 
 @Mapper
 public interface UserMapper {
+    public User findById(Long id);
     public UserDto findByIdToUserDto(Long id);
     public Long insert (User user);
     public void deactivate (Long id);
