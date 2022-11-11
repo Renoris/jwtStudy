@@ -15,3 +15,9 @@ spring:
 
 mybatis:
   config-location: classpath:/mybatis-config.xml
+
+jwt:
+  header: Authorization
+  secret: and0LXN0dWR5LXJlbm9yaXMtc3R1ZHktamRuYzctaG9tZXdvcmtwcm9qZWN0LWtpbWJ5dW5nanVu #base64 encoding한 값임 - 뭘 인코딩했을까요~? jwt-study-renoris-study-jdnc7-homeworkproject-kimbyungjun
+  # 키가 256 bit보다 커야함 낮으면 weakKeyException 이 나타남
+  token-validity-in-seconds: 84000 #토큰만료시간

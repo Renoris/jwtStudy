@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.ibatis.type.Alias;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Alias("Authority")
 public class Authority {
     private static final String ROLE_ADMIN= "ROLE_ADMIN";
     private static final String ROLE_USER= "ROLE_USER";
