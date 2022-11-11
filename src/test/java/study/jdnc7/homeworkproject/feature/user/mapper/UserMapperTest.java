@@ -36,6 +36,36 @@ public class UserMapperTest {
         userMapper.insert(user);
 
         //then
-        assertThat(user.getUserId()).isEqualTo(2L);
+        assertThat(user.getUserId()).isEqualTo(3L);
+    }
+
+    @Test
+    public void 유저_비활성화시_activate가_false이_되어야한다() {
+        //given
+        Long id = 2L;
+        User beforeUser = userMapper.findById(id);
+
+        //when
+        userMapper.deactivate(id);
+        User afterUser = userMapper.findById(id);
+
+        //then
+        assertThat(beforeUser.isActivated()).isTrue();
+        assertThat(afterUser.isActivated()).isFalse();
+    }
+
+    @Test
+    public void 유저_삭제시_삭제가_되어야_한다() {
+        //given
+        Long id = 2L;
+        User beforeUser = userMapper.findById(id);
+
+        //when
+        userMapper.delete(id);
+        User afterUser = userMapper.findById(id);
+
+        //then
+        assertThat(beforeUser).isNotNull();
+        assertThat(afterUser).isNull();
     }
 }

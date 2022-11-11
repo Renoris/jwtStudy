@@ -8,6 +8,8 @@ import study.jdnc7.homeworkproject.feature.user.model.UserDto;
 public interface UserMapper {
     public User findById(Long id);
     public UserDto findByIdToUserDto(Long id);
-    public Long insert (User user);
+    public void insert (User user);
     public void deactivate (Long id);
+
+    public void delete(Long id);
 }
