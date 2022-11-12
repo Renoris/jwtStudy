@@ -1,4 +1,4 @@
-package study.jdnc7.homeworkproject.jwt;
+package study.jdnc7.homeworkproject.filter;
 
 
 import lombok.RequiredArgsConstructor;
@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.GenericFilterBean;
+import study.jdnc7.homeworkproject.jwt.TokenProvider;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
