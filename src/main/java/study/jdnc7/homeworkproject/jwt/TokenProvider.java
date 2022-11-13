@@ -22,13 +22,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class TokenProvider implements InitializingBean {
-
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
-
     private static final String AUTHORITIES_KEY = "auth";
     private final String secret;
     private final long tokenValidityInMilliSeconds;
-
     private Key key;
 
     public TokenProvider(
@@ -85,7 +82,7 @@ public class TokenProvider implements InitializingBean {
 
     //토큰을 파라미터로 받아 토큰의 유효성 검사를 할 수있는 validate Token 메소드
     public boolean validateToken(String token) {
-        try{
+        try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token);
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {

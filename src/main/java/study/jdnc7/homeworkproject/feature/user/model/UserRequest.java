@@ -7,7 +7,6 @@ import study.jdnc7.homeworkproject.domain.user.model.User;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
 
 @Setter
 @Getter

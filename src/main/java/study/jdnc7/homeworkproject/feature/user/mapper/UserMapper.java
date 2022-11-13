@@ -11,8 +11,12 @@ public interface UserMapper {
     public User findById(Long id);
 
     public Optional<User> findByUserNameWithAuthority(String userName);
+
     public UserDto findByIdToUserDto(Long id);
-    public void insert (User user);
-    public void deactivate (Long id);
+
+    public void insert(User user);
+
+    public void deactivate(Long id);
+
     public void delete(Long id);
 }

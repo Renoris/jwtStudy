@@ -13,6 +13,7 @@ import study.jdnc7.homeworkproject.jwt.TokenProvider;
 public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
 
     private final TokenProvider tokenProvider;
+
     @Override
     public void configure(HttpSecurity httpSecurity) {
         //jwtFilter를 security로직에 등록하는 과정
