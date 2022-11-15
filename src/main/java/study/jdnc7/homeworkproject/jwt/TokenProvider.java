@@ -58,7 +58,6 @@ public class TokenProvider implements InitializingBean {
                 .signWith(key, SignatureAlgorithm.HS512)
                 .setExpiration(validity)
                 .compact();
-
     }
 
     //토큰을 파라미터로 받아 토큰에 담겨있는 권한정보를 이용해서 Authentication 객체를 리턴하는 메소드
@@ -67,7 +66,7 @@ public class TokenProvider implements InitializingBean {
                 .parserBuilder()
                 .setSigningKey(key)
                 .build()
-                .parseClaimsJwt(token)
+                .parseClaimsJws(token)
                 .getBody();
 
         Collection<? extends GrantedAuthority> authorities =

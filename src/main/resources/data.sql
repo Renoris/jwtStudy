@@ -1,6 +1,7 @@
+
 INSERT INTO "USER" (USER_NAME, PASSWORD, NICK_NAME, ACTIVATED) VALUES
-    ( 'admin', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'admin', 1),
-    ( 'user2', '$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi', 'user2', 1);
+    ( 'admin', '$2a$10$VOu0Qg.sKJniLFhJxTgRBuxSCtYTp2YmyuZZCSNothccUcC3eA0jq', 'admin', 1),
+    ( 'user2', '$2a$10$VOu0Qg.sKJniLFhJxTgRBuxSCtYTp2YmyuZZCSNothccUcC3eA0jq', 'user2', 1);
 
 INSERT INTO AUTHORITY (AUTHORITY_NAME) values ('ROLE_USER');
 INSERT INTO AUTHORITY (AUTHORITY_NAME) values ('ROLE_ADMIN');
