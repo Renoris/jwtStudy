@@ -11,7 +11,9 @@
         <result column="NICK_NAME" property="nickName"/>
         <result column="PASSWORD" property="password"/>
         <result column="activated" property="activated"/>
-        <collection property="authorities" column="AUTHORITY_NAME" javaType="java.util.HashSet"/>
+        <collection property="authorities" javaType="java.util.HashSet" ofType="Authority">
+            <result property="authorityName" column="AUTHORITY_NAME"/>
+        </collection>
     </resultMap>
 
 
@@ -22,7 +24,7 @@
     <select id="findByUserNameWithAuthority" resultMap="UserWithAuthority">
         select u.USER_ID, u.USER_NAME, u.NICK_NAME, u.PASSWORD, u.ACTIVATED,
         ua.AUTHORITY_NAME
-        FROM "USER" u LEFT JOIN USER_AUTHORITY ua on u.USER_ID = ua = USER_ID where USER_NAME = #{userName};
+        FROM "USER" u LEFT JOIN USER_AUTHORITY ua on u.USER_ID = ua.USER_ID where USER_NAME = #{userName};
     </select>
 
     <select id="findByIdToUserDto" resultType="UserDto">

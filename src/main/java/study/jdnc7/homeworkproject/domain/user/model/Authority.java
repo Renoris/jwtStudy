@@ -24,4 +24,9 @@ public class Authority {
     public static Authority getAdminAuthority() {
         return new Authority(ROLE_ADMIN);
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return authorityName.equals(((Authority) obj).getAuthorityName());
+    }
 }
