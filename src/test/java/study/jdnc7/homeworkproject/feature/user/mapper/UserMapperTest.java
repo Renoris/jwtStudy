@@ -56,7 +56,8 @@ public class UserMapperTest {
     public void 데이터저장시_성공적으로_저장이되어야한다 () {
         //given
         UserRequest userRequest = UserRequest.builder().userName("test1").nickName("test2").password("1234").build();
-        User user = userRequest.toEntity();
+        Authority authority = Authority.getUserAuthority();
+        User user = User.toEntity(userRequest.getUserName(),userRequest.getPassword(),userRequest.getNickName(), authority);
 
         //when
         userMapper.insert(user);

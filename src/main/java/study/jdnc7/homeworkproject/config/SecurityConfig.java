@@ -58,8 +58,8 @@ public class SecurityConfig {
                 .and()
                 .authorizeRequests()
                 .antMatchers("/api/login").permitAll()
-                .antMatchers("/api/authenticate").permitAll()
-                .antMatchers("/api/signup").permitAll()
+                .antMatchers("/auth/authenticate").permitAll()
+                .antMatchers("/user/signup").permitAll()
                 .anyRequest().authenticated()
 
                 //마지막 우리가 만든 config 등록

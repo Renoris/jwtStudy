@@ -1,4 +1,4 @@
-package study.jdnc7.homeworkproject.feature.user.service;
+package study.jdnc7.homeworkproject.security.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;

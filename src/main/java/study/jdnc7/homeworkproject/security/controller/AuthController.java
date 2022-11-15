@@ -1,4 +1,4 @@
-package study.jdnc7.homeworkproject.feature.user.controller;
+package study.jdnc7.homeworkproject.security.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
