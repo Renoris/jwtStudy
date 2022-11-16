@@ -1,10 +1,17 @@
 drop table if exists USER_AUTHORITY;
 drop table if exists "USER";
 drop table if exists AUTHORITY;
-
+drop table if exists BOARD;
 
 CREATE TABLE "USER" (USER_ID BIGINT auto_increment primary key , USER_NAME varchar(50) unique, PASSWORD varchar(100), NICK_NAME varchar(50), ACTIVATED TINYINT);
 CREATE TABLE AUTHORITY (AUTHORITY_NAME varchar(50) primary key);
 CREATE TABLE USER_AUTHORITY (USER_ID BIGINT, AUTHORITY_NAME varchar(50),
     FOREIGN KEY (USER_ID) REFERENCES "USER" ON DELETE CASCADE,
                              FOREIGN KEY (AUTHORITY_NAME) REFERENCES AUTHORITY ON DELETE CASCADE);
+create table BOARD (Board_ID BIGINT auto_increment primary key,
+BOARD_TITLE varchar(50),
+BOARD_CONTENT VARCHAR(300),
+CREATED_AT DATETIME,
+CREATED_BY BIGINT,
+MODIFIED_AT DATE,
+MODIFIED_BY BIGINT);

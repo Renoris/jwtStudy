@@ -19,7 +19,6 @@ public class UserRequest {
     @Size(min = 3, max = 50)
     private String userName;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @Size(min = 3, max = 100)
     private String password;
