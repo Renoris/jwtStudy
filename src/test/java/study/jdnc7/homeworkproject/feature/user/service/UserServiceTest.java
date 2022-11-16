@@ -1,0 +1,68 @@
+package study.jdnc7.homeworkproject.feature.user.service;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import study.jdnc7.homeworkproject.domain.user.model.User;
+import study.jdnc7.homeworkproject.feature.user.mapper.UserAuthorityMapper;
+import study.jdnc7.homeworkproject.feature.user.mapper.UserMapper;
+import study.jdnc7.homeworkproject.feature.user.model.UserRequest;
+
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.*;
+
+@SpringBootTest
+public class UserServiceTest {
+
+    @Autowired
+    private UserService userService;
+
+    @MockBean
+    private UserMapper userMapper;
+
+    @MockBean
+    private PasswordEncoder passwordEncoder;
+
+    @MockBean
+    private UserAuthorityMapper userAuthorityMapper;
+
+    @Test
+    public void 회원가입시_회원가입이_되어있는_유저면_승인되지_말아야한다() {
+        //given
+        UserRequest userRequest = UserRequest.builder().userName("user").nickName("user").password("1234").build();
+        User user = new User();
+        given(userMapper.findByUserNameWithAuthority(userRequest.getUserName())).willReturn(Optional.of(user));
+
+        //when//then
+        assertThrows(RuntimeException.class, () -> userService.signup(userRequest));
+    }
+
+
+    @Test
+    public void 회원가입시_정해진_Mapper의_Method를_수행해야한다() {
+        //given
+        Long userId = 1L;
+        UserRequest userRequest = UserRequest.builder().userName("user").nickName("user").password("1234").build();
+        given(userMapper.findByUserNameWithAuthority(userRequest.getUserName())).willReturn(Optional.empty());
+        given(passwordEncoder.encode(userRequest.getPassword())).willReturn(userRequest.getPassword());
+        doAnswer(invocation -> {
+            User user1 = (User) invocation.getArgument(0); //invoation에서 argument로 1 - user를 가져와서 해당 user에 set
+            user1.setUserId(userId);
+            return null;
+        }).when(userMapper).insert(any(User.class));
+
+        //when
+        userService.signup(userRequest);
+
+        //then
+        verify(userMapper, times(1)).findByUserNameWithAuthority(userRequest.getUserName());
+        verify(userMapper, times(1)).insert(any());
+        verify(userAuthorityMapper, times(1)).insert(any());
+    }
+}
+

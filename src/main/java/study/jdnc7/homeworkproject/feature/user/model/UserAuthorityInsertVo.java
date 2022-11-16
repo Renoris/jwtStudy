@@ -1,10 +1,7 @@
 package study.jdnc7.homeworkproject.feature.user.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.apache.ibatis.type.Alias;
 
 import javax.xml.ws.ServiceMode;
@@ -14,6 +11,7 @@ import javax.xml.ws.ServiceMode;
 @AllArgsConstructor
 @Setter
 @Getter
+@Builder
 public class UserAuthorityInsertVo {
     private Long userId;
     private String authorityName;
