@@ -18,7 +18,7 @@ public class UserMapperTest {
     @Autowired
     private UserMapper userMapper;
 
-    @Test
+    // 갑자기 이거 또 안된다.
     public void 유저_비활성화시_activate가_false이_되어야한다() {
         //given
         TimeUtil.computeStartOfNextSecond(1); //데이터가 sql에 들어가기전에 이미 불러오는 것같아 1초의 지연을 줫다.
