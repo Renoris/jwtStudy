@@ -23,7 +23,6 @@ public class AuthControllerTest {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private MockMvc mockMvc;
-
     @Autowired
     private ObjectMapper objectMapper;
 
