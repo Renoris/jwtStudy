@@ -40,10 +40,10 @@ public class SecurityConfig {
 
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
-        return setCustomConfiguration(httpSecurity).build();
+        return setCustomHttpSecurity(httpSecurity).build();
     }
 
-    private HttpSecurity setCustomConfiguration(HttpSecurity httpSecurity) throws Exception {
+    private HttpSecurity setCustomHttpSecurity(HttpSecurity httpSecurity) throws Exception {
         setCsrfDisable(httpSecurity);
 
         setForH2Setting(httpSecurity); //h2 콘솔을 위한 설정
@@ -59,7 +59,7 @@ public class SecurityConfig {
         return httpSecurity;
     }
 
-    private void setAuthorizeRequestUrl (HttpSecurity httpSecurity) throws Exception {
+    private void setAuthorizeRequestUrl(HttpSecurity httpSecurity) throws Exception {
         ExpressionUrlAuthorizationConfigurer<HttpSecurity>.ExpressionInterceptUrlRegistry registry
                 = httpSecurity.authorizeRequests();
 
@@ -71,12 +71,15 @@ public class SecurityConfig {
     private void setForH2Setting(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.headers().frameOptions().sameOrigin();
     }
+
     private void setCsrfDisable(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable();
     }
+
     private void setCreationPolicyStateLess(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
+
     private void setJwtSecurityConfig(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.apply(new JwtSecurityConfig(tokenProvider));
     }
