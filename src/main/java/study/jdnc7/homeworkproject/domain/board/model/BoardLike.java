@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -14,4 +16,6 @@ import org.apache.ibatis.type.Alias;
 public class BoardLike {
     private Long likeId;
     private Long boardId;
+    private LocalDateTime createdAt;
+    private Long createdBy;
 }
