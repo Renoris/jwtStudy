@@ -55,8 +55,7 @@ public class UserControllerTest {
     @WithAnonymousUser
     public void 나의정보_조회시_유저정보가없으면_거부되어야한다() throws Exception {
         //given
-        User user = new User();
-        given(userService.getMyUserWithAuthorities()).willReturn(Optional.of(user));
+        given(userService.getMyUserWithAuthorities()).willReturn(Optional.empty());
 
         //when
         ResultActions resultActions = mockMvc.perform(get("/user/my"));

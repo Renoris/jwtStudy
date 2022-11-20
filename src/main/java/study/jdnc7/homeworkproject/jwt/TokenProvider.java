@@ -6,13 +6,15 @@ import io.jsonwebtoken.security.Keys;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+import study.jdnc7.homeworkproject.domain.user.mapper.UserMapper;
+import study.jdnc7.homeworkproject.domain.user.model.User;
 
 import java.security.Key;
 import java.util.Arrays;
@@ -28,12 +30,17 @@ public class TokenProvider implements InitializingBean {
     private final long tokenValidityInMilliSeconds;
     private Key key;
 
+    private final UserMapper userMapper;
+
+    @Autowired
     public TokenProvider(
             //.yml에서 설정한 jwt관련 설정들을 불러와 상수 할당
             @Value("${jwt.secret}") String secret,
-            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+            @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
+            UserMapper userMapper) {
         this.secret = secret;
         this.tokenValidityInMilliSeconds = tokenValidityInSeconds;
+        this.userMapper = userMapper;
     }
 
     //빈이 생성이되고 주입을 받은 후에 secret값을 base64디코딩해서 키에 할당
@@ -69,12 +76,13 @@ public class TokenProvider implements InitializingBean {
                 .parseClaimsJws(token)
                 .getBody();
 
-        Collection<? extends GrantedAuthority> authorities =
+        Collection<GrantedAuthority> authorities =
                 Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                         .map(SimpleGrantedAuthority::new)
                         .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
+        User principal = userMapper.findByUserNameWithAuthority(claims.getSubject()).orElseThrow(()-> 
+                new RuntimeException("해당 이름의 유저가 존재하지 않습니다."));
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }

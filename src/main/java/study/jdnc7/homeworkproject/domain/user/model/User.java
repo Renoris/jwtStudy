@@ -12,8 +12,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Alias("User")
 public class User implements UserDetails {
 
@@ -24,16 +24,18 @@ public class User implements UserDetails {
     private boolean activated;
     private Set<Authority> authorities;
 
+
     public static User toEntity(String userName, String password, String nickName, Authority authority) {
-        User user = new User();
-        user.setUserName(userName);
-        user.setPassword(password);
-        user.setNickName(nickName);
-        user.activated = true;
         Set<Authority> set = new HashSet<>();
         set.add(authority);
-        user.setAuthorities(set);
-        return user;
+        return new User(
+                null,
+                userName,
+                password,
+                nickName,
+                true,
+                set
+        );
     }
 
     public String getUserName() {
