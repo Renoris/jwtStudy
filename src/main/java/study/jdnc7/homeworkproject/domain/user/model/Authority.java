@@ -5,13 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
+import org.springframework.security.core.GrantedAuthority;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Alias("Authority")
-public class Authority {
+public class Authority implements GrantedAuthority {
     private static final String ROLE_ADMIN= "ROLE_ADMIN";
     private static final String ROLE_USER= "ROLE_USER";
 
@@ -28,5 +29,10 @@ public class Authority {
     @Override
     public boolean equals(Object obj) {
         return authorityName.equals(((Authority) obj).getAuthorityName());
+    }
+
+    @Override
+    public String getAuthority() {
+        return authorityName;
     }
 }
