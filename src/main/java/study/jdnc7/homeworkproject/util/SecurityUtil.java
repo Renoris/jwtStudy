@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import study.jdnc7.homeworkproject.domain.user.model.User;
 
 import java.util.Optional;
 
@@ -31,6 +32,22 @@ public class SecurityUtil {
         }
 
         return Optional.ofNullable(userName);
+    }
 
+    public static Optional<Long> getCurrentUserId() {
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        //홀딩되는 시점은 jwtFilter에서 request가 들어올때 authentication 객체를 저장해서 사용하게 됨
+        if (authentication == null) {
+            logger.debug("Security Context에 인증 정보가 없습니다");
+            return Optional.empty();
+        }
+
+        Long userId = null;
+        if (authentication.getPrincipal() instanceof UserDetails) {
+            User user = (User) authentication.getPrincipal();
+            userId = user.getUserId();
+        }
+
+        return Optional.ofNullable(userId);
     }
 }

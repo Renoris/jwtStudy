@@ -12,4 +12,6 @@ public interface BoardCommentMapper {
     public void delete(Long id);
     public void findByPageable(Pageable pageable);
     public void findById(Long id);
+
+    public void existById(Long id);
 }
