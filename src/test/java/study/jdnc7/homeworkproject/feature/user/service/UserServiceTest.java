@@ -9,8 +9,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import study.jdnc7.homeworkproject.domain.user.model.Authority;
 import study.jdnc7.homeworkproject.domain.user.model.User;
-import study.jdnc7.homeworkproject.feature.user.mapper.UserAuthorityMapper;
-import study.jdnc7.homeworkproject.feature.user.mapper.UserMapper;
+import study.jdnc7.homeworkproject.domain.user.mapper.UserAuthorityMapper;
+import study.jdnc7.homeworkproject.domain.user.mapper.UserMapper;
 import study.jdnc7.homeworkproject.feature.user.model.UserRequest;
 import study.jdnc7.homeworkproject.util.SecurityUtil;
 

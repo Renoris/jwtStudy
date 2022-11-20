@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import study.jdnc7.homeworkproject.domain.user.model.User;
-import study.jdnc7.homeworkproject.feature.user.mapper.UserMapper;
+import study.jdnc7.homeworkproject.domain.user.mapper.UserMapper;
 
 import java.util.List;
 import java.util.stream.Collectors;

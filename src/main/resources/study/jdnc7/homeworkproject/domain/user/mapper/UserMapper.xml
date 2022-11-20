@@ -3,7 +3,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="study.jdnc7.homeworkproject.feature.user.mapper.UserMapper">
+<mapper namespace="study.jdnc7.homeworkproject.domain.user.mapper.UserMapper">
 
     <resultMap id="UserWithAuthority" type="User">
         <id column="USER_ID" property="userId"/>

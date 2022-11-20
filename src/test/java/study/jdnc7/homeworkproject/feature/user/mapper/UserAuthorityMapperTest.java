@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import study.jdnc7.homeworkproject.domain.user.model.Authority;
 import study.jdnc7.homeworkproject.domain.user.model.User;
+import study.jdnc7.homeworkproject.domain.user.mapper.UserAuthorityMapper;
+import study.jdnc7.homeworkproject.domain.user.mapper.UserMapper;
 import study.jdnc7.homeworkproject.feature.user.model.UserAuthorityInsertVo;
 
 import static org.assertj.core.api.Assertions.assertThat;
