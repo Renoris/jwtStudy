@@ -8,8 +8,8 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public class Base {
-    private LocalDateTime createdAt;
-    private Long createdBy;
-    private LocalDateTime modifiedAt;
-    private Long modifiedBy;
+    protected LocalDateTime createdAt;
+    protected Long createdBy;
+    protected LocalDateTime modifiedAt;
+    protected Long modifiedBy;
 }

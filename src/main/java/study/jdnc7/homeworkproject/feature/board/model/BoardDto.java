@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
+import study.jdnc7.homeworkproject.domain.board.model.Board;
+
+import java.time.LocalDateTime;
 
 public class BoardDto {
 
@@ -27,5 +30,9 @@ public class BoardDto {
         private Long boardId;
         private String boardTitle;
         private String boardContent;
+        private LocalDateTime createdAt;
+        private LocalDateTime modifiedAt;
+        private Long createdByName;
+        private Long modifiedByName;
     }
 }

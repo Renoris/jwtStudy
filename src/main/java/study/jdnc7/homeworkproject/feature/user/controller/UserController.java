@@ -21,23 +21,23 @@ public class UserController {
     private final UserService userService;
 
     @PostMapping("/signup")
-    public ResponseEntity<Long> signup(@Valid @RequestBody UserRequest userRequest) {
-        return new ResponseEntity<>(userService.signup(userRequest), HttpStatus.CREATED);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Long signup(@Valid @RequestBody UserRequest userRequest) {
+        return userService.signup(userRequest);
     }
 
     @GetMapping("/my")
-    public ResponseEntity<User> getMyUserInfo() {
+    @ResponseStatus(HttpStatus.OK)
+    public User getMyUserInfo() {
         Optional<User> optionalUser = userService.getMyUserWithAuthorities();
-        if (!optionalUser.isPresent()) throw new RuntimeException("로그인 하지 않았습니다");
-        return new ResponseEntity<>(optionalUser.get(), HttpStatus.OK);
+        return optionalUser.orElseThrow(() -> new RuntimeException("해당 유저의 정보가 없습니다."));
     }
 
     @GetMapping("/{userName}")
     @PreAuthorize("hasRole('ADMIN')") //앞에 hasRole(이것이 무조건 있어야한다)이나 hasAnyRole(이것중 하나라도 잇으면)의 경우 Role_의 접두사를 앞에 붙여준다
-    public ResponseEntity<User> getUserInfo(@PathVariable String userName) {
+    @ResponseStatus(HttpStatus.OK)
+    public User getUserInfo(@PathVariable String userName) {
         Optional<User> optionalUser = userService.getUserWithAuthorities(userName);
-        if (!optionalUser.isPresent()) throw new RuntimeException("해당 유저를 찾지 못했습니다");
-        return new ResponseEntity<>(optionalUser.get(), HttpStatus.OK);
-
+        return optionalUser.orElseThrow(() -> new RuntimeException("해당 유저의 정보가 없습니다."));
     }
 }
