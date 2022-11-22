@@ -10,9 +10,8 @@
     </sql>
 
     <sql id="COMMON_PAGING_TAIL">
-        ) R1 LIMIT #{pageable.getPageNumber()}} OFFSET #{pageable.getPageSize()}
+        ) R1 LIMIT #{pageInfo.pageSize} OFFSET #{pageInfo.offset}
     </sql>
-
 
     <insert id="insert" parameterType="Board" keyProperty="boardId" useGeneratedKeys="true">
         insert into BOARD (BOARD_TITLE, BOARD_CONTENT, VISIBILITY) VALUES (#{boardTitle}, #{boardContent}, #{visibility})
@@ -35,6 +34,13 @@
     <select id="findByPageable" parameterType="org.springframework.data.domain.Pageable" resultType="java.util.ArrayList">
         <include refid="COMMON_PAGING_HEADER"/>
         select BOARD_ID, BOARD_TITLE from BOARD
+        <trim prefix="ORDER BY">
+            <if test="pageInfo.sortKey == 'createdAt' and pageInfo.direction == 'ASC'">CREATED_AT asc</if>
+            <if test="pageInfo.sortKey == 'createdAt' and pageInfo.direction == 'DESC'">CREATED_AT desc</if>
+            <if test="pageInfo.sortKey == 'boardId' and pageInfo.direction== 'ASC'">BOARD_ID asc</if>
+            <if test="pageInfo.sortKey == 'boardId' and pageInfo.direction == 'DESC'">BOARD_ID desc</if>
+
+        </trim>
         <include refid="COMMON_PAGING_TAIL"/>
     </select>
 
