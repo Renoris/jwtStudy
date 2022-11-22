@@ -11,8 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import study.jdnc7.homeworkproject.jwt.JwtAccessDeniedHandler;
-import study.jdnc7.homeworkproject.jwt.JwtAuthenticationEntryPoint;
 import study.jdnc7.homeworkproject.jwt.TokenProvider;
 
 import java.util.Arrays;
@@ -22,9 +20,6 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final TokenProvider tokenProvider;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
-    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
-
     private final String[] permitAllUrls = {"/api/login", "/auth/authenticate", "/user/signup"};
 
     @Bean
@@ -54,8 +49,6 @@ public class SecurityConfig {
 
         setAuthorizeRequestUrl(httpSecurity); // url 셋팅
 
-        setExceptionHandling(httpSecurity);
-
         return httpSecurity;
     }
 
@@ -82,13 +75,5 @@ public class SecurityConfig {
 
     private void setJwtSecurityConfig(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.apply(new JwtSecurityConfig(tokenProvider));
-    }
-
-    private void setExceptionHandling(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-                .accessDeniedHandler(jwtAccessDeniedHandler);
-
     }
 }

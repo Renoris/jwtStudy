@@ -1,20 +1,12 @@
 package study.jdnc7.homeworkproject.security.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
-import study.jdnc7.homeworkproject.domain.user.model.Authority;
-import study.jdnc7.homeworkproject.domain.user.model.User;
 import study.jdnc7.homeworkproject.domain.user.mapper.UserMapper;
-
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Component("userDetailsService")
 @RequiredArgsConstructor

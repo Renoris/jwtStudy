@@ -61,7 +61,7 @@ public class UserControllerTest {
         ResultActions resultActions = mockMvc.perform(get("/user/my"));
 
         //then
-        resultActions.andExpect(status().isUnauthorized());
+        resultActions.andExpect(status().isForbidden());
     }
 
     @Test
