@@ -40,13 +40,13 @@ public class BoardController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Long createBoard(@ModelAttribute BoardRequest boardRequest) {
-        return boardService.createBoard(boardRequest);
+        return null;
     }
 
     @PatchMapping("/{boardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBoard(@PathVariable Long boardId, @ModelAttribute BoardRequest boardRequest) {
-        boardService.updateBoard(boardId, boardRequest);
+
     }
 
     @PatchMapping("/unvisible/{boardId}")
