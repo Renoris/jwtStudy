@@ -5,4 +5,5 @@ import java.time.LocalDateTime;
 public interface UpdateBoard {
     public String getBoardTitle();
     public String getBoardContent();
+    public boolean visibility();
 }

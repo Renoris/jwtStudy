@@ -20,7 +20,7 @@ public class FileInfo extends Base {
     private String fileOriginName;
     private String filePath;
 
-    public FileInfo(Long userId, String fileName, String fileOriginName, String filePath) {
+    public FileInfo(String fileName, String fileOriginName, String filePath, Long userId) {
         this.createdBy = userId;
         this.modifiedBy = userId;
         this.createdAt = LocalDateTime.now();

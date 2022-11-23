@@ -32,10 +32,10 @@ public class FileService {
             file.transferTo(new File(itemFilePath));
 
             FileInfo fileInfo = new FileInfo(
-                    userId,
                     file.getName(),
                     file.getOriginalFilename(),
-                    itemFilePath
+                    itemFilePath,
+                    userId
             );
             fileInfoMapper.insert(fileInfo);
             fileInfos.add(fileInfo);
