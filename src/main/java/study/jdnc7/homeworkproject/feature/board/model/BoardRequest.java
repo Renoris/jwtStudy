@@ -15,6 +15,7 @@ import java.util.List;
 public class BoardRequest implements UpdateBoard {
     private String boardTitle;
     private String boardContent;
+    private boolean visibility;
     private List<MultipartFile> files;
 
     public Board toBoardEntity(Long userId) {
