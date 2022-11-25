@@ -19,6 +19,10 @@ public class BoardDto {
     public static class ListItem {
         private Long boardId;
         private String boardTitle;
+        private LocalDateTime createdAt;
+        private Long createdByName;
+        private LocalDateTime modifiedAt;
+        private Long modifiedByName;
     }
 
     @Setter
