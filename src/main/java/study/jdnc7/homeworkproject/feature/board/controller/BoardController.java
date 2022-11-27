@@ -14,6 +14,7 @@ import study.jdnc7.homeworkproject.domain.board.mapper.BoardMapper;
 import study.jdnc7.homeworkproject.feature.board.model.BoardDto;
 import study.jdnc7.homeworkproject.feature.board.model.BoardRequest;
 import study.jdnc7.homeworkproject.feature.board.service.BoardService;
+import study.jdnc7.homeworkproject.util.SecurityUtil;
 
 import java.util.List;
 
@@ -27,8 +28,7 @@ public class BoardController {
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public Page<BoardDto.ListItem> getBoardList(@PageableDefault Pageable pageable) {
-        List<BoardDto.ListItem> list = boardService.getBoardList(PageInfo.of(pageable));
-        return new PageImpl<>(list, pageable, 0); // 토탈을 한번에 끌어올 방법을 강구하자
+        return boardService.getBoardList(pageable);
     }
 
     @GetMapping("/{boardId}")
@@ -40,24 +40,27 @@ public class BoardController {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Long createBoard(@ModelAttribute BoardRequest boardRequest) {
+        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("접속하지 않은 유저입니다"));
         return null;
     }
 
     @PatchMapping("/{boardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateBoard(@PathVariable Long boardId, @ModelAttribute BoardRequest boardRequest) {
-
+        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("접속하지 않은 유저입니다"));
     }
 
     @PatchMapping("/unvisible/{boardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void unVisibleBoard(@PathVariable Long boardId) {
-        boardService.unVisible(boardId);
+        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("접속하지 않은 유저입니다"));
+        boardService.unVisible(userId, boardId);
     }
 
     @DeleteMapping("/{boardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long boardId) {
-        boardService.delete(boardId);
+        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("접속하지 않은 유저입니다"));
+        boardService.delete(userId, boardId);
     }
 }

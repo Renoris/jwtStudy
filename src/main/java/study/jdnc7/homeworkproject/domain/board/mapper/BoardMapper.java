@@ -14,9 +14,10 @@ public interface BoardMapper {
     public void update(Board board);
     public void unVisible(Long userId, Long boardId);
     public void delete(Long id);
-    public List<BoardDto.ListItem> findByPageable(PageInfo pageInfo);
+    public List<BoardDto.ListItem> findAllByPageInfo(PageInfo pageInfo);
     public Optional<BoardDto.Detail> findByIdToDetail(Long id);
     public Optional<Board> findById(Long id);
 
+    public Long findTotalCount();
     public boolean existById(Long id);
 }

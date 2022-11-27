@@ -22,9 +22,7 @@ public class FileService {
     private final String filePath = "/save/";
 
     @Transactional
-    public List<FileInfo> insertFiles(BoardRequest boardRequest) throws IOException {
-        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("유저가 로그인하지 않았습니다"));
-
+    public List<FileInfo> insertFiles(Long userId, BoardRequest boardRequest) throws IOException {
         List<MultipartFile> files = boardRequest.getFiles();
         List<FileInfo> fileInfos = new ArrayList<>();
         for (MultipartFile file : files) {

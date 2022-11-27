@@ -1,6 +1,9 @@
 package study.jdnc7.homeworkproject.feature.board.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.jdnc7.homeworkproject.domain.PageInfo;
@@ -27,8 +30,11 @@ public class BoardService {
     private final FileService fileService;
 
     @Transactional(readOnly = true)
-    public List<BoardDto.ListItem> getBoardList(PageInfo pageInfo) {
-        return boardMapper.findByPageable(pageInfo);
+    public Page<BoardDto.ListItem> getBoardList(Pageable pageable) {
+        PageInfo pageInfo = PageInfo.of(pageable);
+        List<BoardDto.ListItem> list = boardMapper.findAllByPageInfo(pageInfo);
+        Long count = boardMapper.findTotalCount();
+        return new PageImpl<BoardDto.ListItem>(list, pageable, count);
     }
 
     @Transactional(readOnly = true)
@@ -37,9 +43,8 @@ public class BoardService {
     }
 
     @Transactional
-    public Long createBoard(BoardRequest boardRequest) throws IOException {
-        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("유저가 로그인하지 않았습니다"));
-        List<FileInfo> list = fileService.insertFiles(boardRequest);
+    public Long createBoard(Long userId, BoardRequest boardRequest) throws IOException {
+        List<FileInfo> list = fileService.insertFiles(userId, boardRequest);
         Board board = boardRequest.toBoardEntity(userId);
         boardMapper.insert(board);
 
@@ -50,10 +55,9 @@ public class BoardService {
     }
 
     @Transactional
-    public void updateBoard(Long boardId, BoardRequest boardRequest) throws IOException {
-        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("유저가 로그인하지 않았습니다"));
+    public void updateBoard(Long userId, Long boardId, BoardRequest boardRequest) throws IOException {
         Board board = boardMapper.findById(boardId).orElseThrow(() -> new RuntimeException("해당 Id에 해당하는 게시글이 없습니다"));
-        List<FileInfo> list = fileService.insertFiles(boardRequest);
+        List<FileInfo> list = fileService.insertFiles(userId, boardRequest);
 
         //이미 있었던 파일 맵핑제거
         boardFileMapper.deleteAllByBoardId(board.getBoardID());
@@ -64,16 +68,14 @@ public class BoardService {
     }
 
     @Transactional
-    public void unVisible(Long boardId) {
-        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("접속하지 않은 유저입니다"));
+    public void unVisible(Long userId, Long boardId) {
         Board board = boardMapper.findById(boardId).orElseThrow(() -> new RuntimeException("해당 Board Id에 해당하는 정보가 없습니다"));
         if (!(board.getCreatedBy().equals(userId) || SecurityUtil.isAdmin())) throw new RuntimeException("해당 Board 의 작성자가 아닙니다");
         boardMapper.unVisible(userId, boardId);
     }
 
     @Transactional
-    public void delete(Long boardId) {
-        Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("접속하지 않은 유저입니다"));
+    public void delete(Long userId, Long boardId) {
         Board board = boardMapper.findById(boardId).orElseThrow(() -> new RuntimeException("해당 Board Id에 해당하는 정보가 없습니다"));
         if (!(board.getCreatedBy().equals(userId) || SecurityUtil.isAdmin())) throw new RuntimeException("해당 Board 의 작성자가 아닙니다");
         boardMapper.delete(boardId);

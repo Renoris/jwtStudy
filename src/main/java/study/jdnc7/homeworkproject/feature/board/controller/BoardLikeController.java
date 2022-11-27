@@ -25,7 +25,6 @@ public class BoardLikeController {
 
     @PostMapping("/{boardId}")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("isAuthenticated()")
     public void createBoardLike(@PathVariable("boardId") Long boardId) {
         if (!boardMapper.existById(boardId)) throw new RuntimeException("해당 게시물이 존재하지 않습니다.");
         boardLikeService.insert(boardId);
@@ -33,7 +32,6 @@ public class BoardLikeController {
 
     @DeleteMapping("/{boardId}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("isAuthenticated()")
     public void deleteBoardLike(@PathVariable("boardId") Long boardId) {
         if (!boardMapper.existById(boardId)) throw new RuntimeException("해당 게시물이 존재하지 않습니다.");
         boardLikeService.delete(boardId);
