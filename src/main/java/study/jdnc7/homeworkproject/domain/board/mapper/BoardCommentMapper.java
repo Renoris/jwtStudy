@@ -16,7 +16,6 @@ public interface BoardCommentMapper {
     public void delete(Long id);
     public List<BoardCommentDto> findByParameterVo(CommentParameterVo vo);
     public Optional<BoardComment> findById(Long id);
-
     public void existById(Long id);
 
     public long findTotalCount();

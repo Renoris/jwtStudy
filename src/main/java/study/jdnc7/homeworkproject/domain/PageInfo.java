@@ -1,15 +1,14 @@
 package study.jdnc7.homeworkproject.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.apache.ibatis.type.Alias;
 import org.springframework.data.domain.Pageable;
-
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@Alias("PageInfo")
 public class PageInfo {
     private int pageNum;
     private int pageSize;

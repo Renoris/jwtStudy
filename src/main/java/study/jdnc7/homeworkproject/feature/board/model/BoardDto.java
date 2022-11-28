@@ -20,9 +20,10 @@ public class BoardDto {
         private Long boardId;
         private String boardTitle;
         private LocalDateTime createdAt;
-        private Long createdByName;
+        private Long createdName;
         private LocalDateTime modifiedAt;
-        private Long modifiedByName;
+        private Long modifiedName;
+
     }
 
     @Setter

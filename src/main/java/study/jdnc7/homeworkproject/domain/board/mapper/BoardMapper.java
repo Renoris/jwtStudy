@@ -10,14 +10,14 @@ import java.util.Optional;
 
 @Mapper
 public interface BoardMapper {
+
+    public List<BoardDto.ListItem> findAllByPageInfo(PageInfo pageInfo);
+    public Optional<BoardDto.Detail> findByIdToDetail(Long id);
+    public Optional<Board> findById(Long id);
     public void insert(Board board);
     public void update(Board board);
     public void unVisible(Long userId, Long boardId);
     public void delete(Long id);
-    public List<BoardDto.ListItem> findAllByPageInfo(PageInfo pageInfo);
-    public Optional<BoardDto.Detail> findByIdToDetail(Long id);
-    public Optional<Board> findById(Long id);
-
     public Long findTotalCount();
     public boolean existById(Long id);
 }
