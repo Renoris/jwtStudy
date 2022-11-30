@@ -17,5 +17,5 @@ public class BoardCommentDto {
     private Long commentId;
     private String commentContent;
     private LocalDateTime createdAt;
-    private Long createdByName;
+    private Long createdName;
 }
