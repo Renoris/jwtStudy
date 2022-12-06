@@ -32,6 +32,7 @@ public class BoardCommentService {
 
     @Transactional
     public Long insertComment(Long userId, BoardCommentRequest request) {
+        //라인이 읽기가 힘들다 띄어쓰기도 필요하고
         if (!boardMapper.existById(request.getBoardId())) throw new RuntimeException("해당 게시물이 존재하지 않습니다.");
         BoardComment boardComment = request.toEntityWithUserId(userId);
         boardCommentMapper.insert(boardComment);

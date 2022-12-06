@@ -16,6 +16,8 @@ public class BoardLikeController {
     private final BoardLikeService boardLikeService;
     private final BoardMapper boardMapper;
 
+    //패키지 정리
+    //
     @GetMapping("/{boardId}")
     @ResponseStatus(HttpStatus.OK)
     public BoardLikeDto getBoardLikes(@PathVariable("boardId") Long boardId) {

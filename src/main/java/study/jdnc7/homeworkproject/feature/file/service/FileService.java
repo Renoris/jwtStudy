@@ -25,19 +25,19 @@ public class FileService {
     public List<FileInfo> insertFiles(Long userId, BoardRequest boardRequest) throws IOException {
         List<MultipartFile> files = boardRequest.getFiles();
         List<FileInfo> fileInfos = new ArrayList<>();
-        for (MultipartFile file : files) {
-            String itemFilePath = filePath + createFileName(file.getOriginalFilename());
-            file.transferTo(new File(itemFilePath));
-
-            FileInfo fileInfo = new FileInfo(
-                    file.getName(),
-                    file.getOriginalFilename(),
-                    itemFilePath,
-                    userId
-            );
-            fileInfoMapper.insert(fileInfo);
-            fileInfos.add(fileInfo);
-        }
+//        for (MultipartFile file : files) {
+//            String itemFilePath = filePath + createFileName(file.getOriginalFilename());
+//            file.transferTo(new File(itemFilePath));
+//
+//            FileInfo fileInfo = new FileInfo(
+//                    file.getName(),
+//                    file.getOriginalFilename(),
+//                    itemFilePath,
+//                    userId
+//            );
+//            fileInfoMapper.insert(fileInfo);
+//            fileInfos.add(fileInfo);
+//        }
 
         return fileInfos;
     }
