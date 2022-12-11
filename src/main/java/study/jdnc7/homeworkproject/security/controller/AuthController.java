@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import study.jdnc7.homeworkproject.feature.user.model.LoginRequest;
-import study.jdnc7.homeworkproject.feature.user.model.TokenDto;
+import study.jdnc7.homeworkproject.feature.user.model.dto.LoginRequest;
+import study.jdnc7.homeworkproject.feature.user.model.dto.TokenDto;
 import study.jdnc7.homeworkproject.filter.JwtFilter;
 import study.jdnc7.homeworkproject.jwt.TokenProvider;
 

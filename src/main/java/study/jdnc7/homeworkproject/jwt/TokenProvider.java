@@ -13,8 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
-import study.jdnc7.homeworkproject.domain.user.mapper.UserMapper;
-import study.jdnc7.homeworkproject.domain.user.model.User;
+import study.jdnc7.homeworkproject.feature.user.mapper.UserMapper;
+import study.jdnc7.homeworkproject.feature.user.model.entity.User;
 
 import java.security.Key;
 import java.util.Arrays;

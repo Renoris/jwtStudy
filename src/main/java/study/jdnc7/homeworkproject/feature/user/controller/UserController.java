@@ -1,14 +1,11 @@
 package study.jdnc7.homeworkproject.feature.user.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import study.jdnc7.homeworkproject.domain.user.model.User;
-import study.jdnc7.homeworkproject.feature.user.model.UserDto;
-import study.jdnc7.homeworkproject.feature.user.model.UserRequest;
+import study.jdnc7.homeworkproject.feature.user.model.entity.User;
+import study.jdnc7.homeworkproject.feature.user.model.dto.UserRequest;
 import study.jdnc7.homeworkproject.feature.user.service.UserService;
 
 import javax.validation.Valid;

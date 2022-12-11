@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.jdnc7.homeworkproject.domain.user.model.Authority;
-import study.jdnc7.homeworkproject.domain.user.model.User;
-import study.jdnc7.homeworkproject.domain.user.mapper.UserAuthorityMapper;
-import study.jdnc7.homeworkproject.domain.user.mapper.UserMapper;
-import study.jdnc7.homeworkproject.feature.user.model.UserAuthorityInsertVo;
-import study.jdnc7.homeworkproject.feature.user.model.UserRequest;
+import study.jdnc7.homeworkproject.feature.user.model.entity.Authority;
+import study.jdnc7.homeworkproject.feature.user.model.entity.User;
+import study.jdnc7.homeworkproject.feature.user.mapper.UserAuthorityMapper;
+import study.jdnc7.homeworkproject.feature.user.mapper.UserMapper;
+import study.jdnc7.homeworkproject.feature.user.model.dto.UserAuthorityInsertVo;
+import study.jdnc7.homeworkproject.feature.user.model.dto.UserRequest;
 import study.jdnc7.homeworkproject.util.SecurityUtil;
 
 import java.util.Optional;

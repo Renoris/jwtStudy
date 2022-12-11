@@ -6,14 +6,14 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.jdnc7.homeworkproject.domain.PageInfo;
-import study.jdnc7.homeworkproject.domain.board.mapper.BoardFileMapper;
-import study.jdnc7.homeworkproject.domain.board.mapper.BoardMapper;
-import study.jdnc7.homeworkproject.domain.board.model.Board;
-import study.jdnc7.homeworkproject.domain.file.model.FileInfo;
-import study.jdnc7.homeworkproject.feature.board.model.BoardDto;
-import study.jdnc7.homeworkproject.feature.board.model.BoardFileVo;
-import study.jdnc7.homeworkproject.feature.board.model.BoardRequest;
+import study.jdnc7.homeworkproject.feature.common.model.PageInfo;
+import study.jdnc7.homeworkproject.feature.board.mapper.BoardFileMapper;
+import study.jdnc7.homeworkproject.feature.board.mapper.BoardMapper;
+import study.jdnc7.homeworkproject.feature.board.model.entity.Board;
+import study.jdnc7.homeworkproject.feature.file.model.entity.FileInfo;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardDto;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardFileVo;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardRequest;
 import study.jdnc7.homeworkproject.feature.file.service.FileService;
 import study.jdnc7.homeworkproject.util.SecurityUtil;
 
@@ -24,7 +24,6 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class BoardService {
-
     private final BoardMapper boardMapper;
     private final BoardFileMapper boardFileMapper;
     private final FileService fileService;

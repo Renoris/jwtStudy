@@ -11,8 +11,8 @@ import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
-import study.jdnc7.homeworkproject.domain.user.model.User;
-import study.jdnc7.homeworkproject.feature.user.model.UserRequest;
+import study.jdnc7.homeworkproject.feature.user.model.entity.User;
+import study.jdnc7.homeworkproject.feature.user.model.dto.UserRequest;
 import study.jdnc7.homeworkproject.feature.user.service.UserService;
 
 import java.util.Optional;

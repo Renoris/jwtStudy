@@ -6,8 +6,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import study.jdnc7.homeworkproject.feature.board.model.BoardCommentDto;
-import study.jdnc7.homeworkproject.feature.board.model.BoardCommentRequest;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardCommentDto;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardCommentRequest;
 import study.jdnc7.homeworkproject.feature.board.service.BoardCommentService;
 import study.jdnc7.homeworkproject.util.SecurityUtil;
 

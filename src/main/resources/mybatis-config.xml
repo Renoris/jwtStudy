@@ -5,12 +5,8 @@
         <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
     <typeAliases>
-        <package name="study.jdnc7.homeworkproject.feature.board.model"/>
-        <package name="study.jdnc7.homeworkproject.feature.user.model"/>
-        <package name="study.jdnc7.homeworkproject.feature.file.model"/>
-        <package name="study.jdnc7.homeworkproject.domain.user.model"/>
-        <package name="study.jdnc7.homeworkproject.domain.board.model"/>
-        <package name="study.jdnc7.homeworkproject.domain.file.model"/>
-        <package name="study.jdnc7.homeworkproject.domain"/>
+        <typeAlias type="study.jdnc7.homeworkproject.feature.board.model.dto.BoardDto$Detail" alias="BoardDetail"/>
+        <typeAlias type="study.jdnc7.homeworkproject.feature.board.model.dto.BoardDto$ListItem" alias="BoardListItem"/>
+        <package name="study.jdnc7.homeworkproject.feature"/>
     </typeAliases>
 </configuration>

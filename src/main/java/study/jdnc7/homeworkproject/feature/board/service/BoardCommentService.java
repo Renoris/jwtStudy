@@ -6,13 +6,13 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.jdnc7.homeworkproject.domain.PageInfo;
-import study.jdnc7.homeworkproject.domain.board.mapper.BoardCommentMapper;
-import study.jdnc7.homeworkproject.domain.board.mapper.BoardMapper;
-import study.jdnc7.homeworkproject.domain.board.model.BoardComment;
-import study.jdnc7.homeworkproject.feature.board.model.BoardCommentDto;
-import study.jdnc7.homeworkproject.feature.board.model.BoardCommentRequest;
-import study.jdnc7.homeworkproject.feature.board.model.CommentParameterVo;
+import study.jdnc7.homeworkproject.feature.common.model.PageInfo;
+import study.jdnc7.homeworkproject.feature.board.mapper.BoardCommentMapper;
+import study.jdnc7.homeworkproject.feature.board.mapper.BoardMapper;
+import study.jdnc7.homeworkproject.feature.board.model.entity.BoardComment;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardCommentDto;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardCommentRequest;
+import study.jdnc7.homeworkproject.feature.board.model.dto.CommentParameterVo;
 
 import java.util.List;
 

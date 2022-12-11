@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.jdnc7.homeworkproject.feature.user.mapper.UserMapper">
+
+    <resultMap id="UserWithAuthority" type="User">
+        <id column="USER_ID" property="userId"/>
+        <result column="USER_NAME" property="userName"/>
+        <result column="NICK_NAME" property="nickName"/>
+        <result column="PASSWORD" property="password"/>
+        <result column="activated" property="activated"/>
+        <collection property="authorities" javaType="java.util.HashSet" ofType="Authority">
+            <result property="authorityName" column="AUTHORITY_NAME"/>
+        </collection>
+    </resultMap>
+
+
+    <select id="findById" resultType="User">
+        select USER_ID, USER_NAME, NICK_NAME, PASSWORD, ACTIVATED FROM "USER" Where user_id = #{id};
+    </select>
+
+    <select id="findByUserNameWithAuthority" resultMap="UserWithAuthority">
+        select u.USER_ID, u.USER_NAME, u.NICK_NAME, u.PASSWORD, u.ACTIVATED,
+        ua.AUTHORITY_NAME
+        FROM "USER" u LEFT JOIN USER_AUTHORITY ua on u.USER_ID = ua.USER_ID where USER_NAME = #{userName};
+    </select>
+
+    <select id="findByIdToUserDto" resultType="UserDto">
+        select USER_ID, USER_NAME, NICK_NAME FROM "USER" WHERE USER_ID = #{id};
+    </select>
+
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="userId">
+        INSERT INTO `USER` (USER_NAME, PASSWORD ,NICK_NAME, ACTIVATED)
+        VALUES (#{userName}, #{password}, #{nickName}, #{activated});
+    </insert>
+
+    <update id="deactivate" parameterType="Long">
+        update "USER" set ACTIVATED = 0 where USER_ID = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from "USER" where USER_ID = #{id}
+    </delete>
+</mapper>

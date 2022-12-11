@@ -18,10 +18,6 @@ public class FileUtil {
         return filePath;
     }
 
-    public static List<String> getFilePaths (List<MultipartFile> fileList) {
-        List<String> list = new ArrayList<>();
-        for
-    }
 
     private static void saveFile (MultipartFile file, String filePath) throws IOException {
         file.transferTo(new File(filePath));

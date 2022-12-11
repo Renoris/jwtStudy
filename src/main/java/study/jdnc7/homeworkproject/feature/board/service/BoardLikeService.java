@@ -3,9 +3,9 @@ package study.jdnc7.homeworkproject.feature.board.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import study.jdnc7.homeworkproject.domain.board.mapper.BoardLikeMapper;
-import study.jdnc7.homeworkproject.domain.board.model.BoardLikeParameter;
-import study.jdnc7.homeworkproject.feature.board.model.BoardLikeDto;
+import study.jdnc7.homeworkproject.feature.board.mapper.BoardLikeMapper;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardLikeParameter;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardLikeDto;
 
 @Service
 @RequiredArgsConstructor

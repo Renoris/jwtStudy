@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.jdnc7.homeworkproject.feature.board.mapper.BoardMapper">
+
+    <sql id="COMMON_PAGING_HEADER">
+        select R1.* FROM(
+    </sql>
+
+    <sql id="COMMON_PAGING_TAIL">
+        ) R1 LIMIT #{pageInfo.pageSize} OFFSET #{pageInfo.offset}
+    </sql>
+
+    <select id="findByPageInfo" parameterType="PageInfo" resultType="java.util.ArrayList">
+        <include refid="COMMON_PAGING_HEADER"/>
+        select BOARD.BOARD_ID, BOARD.BOARD_TITLE,
+               u1.USER_NAME as CREATED_Name,
+               u2.USER_NAME as MODIFIED_Name,
+               BOARD.MODIFIED_AT,
+               BOARD.CREATED_AT
+               FROM BOARD
+            JOIN USER AS u1 ON BOARD.CREATED_BY = USER.USER_ID
+            JOIN USER AS u2 ON BOARD.MODIFIED_BY = USER.USER_ID
+        <trim prefix="ORDER BY">
+            <if test="pageInfo.sortKey == 'createdAt' and pageInfo.direction == 'ASC'">CREATED_AT asc</if>
+            <if test="pageInfo.sortKey == 'createdAt' and pageInfo.direction == 'DESC'">CREATED_AT desc</if>
+            <if test="pageInfo.sortKey == 'boardId' and pageInfo.direction== 'ASC'">BOARD_ID asc</if>
+            <if test="pageInfo.sortKey == 'boardId' and pageInfo.direction == 'DESC'">BOARD_ID desc</if>
+        </trim>
+        <include refid="COMMON_PAGING_TAIL"/>
+    </select>
+
+    <select id="findById" parameterType="Long" resultType="Board">
+        select BOARD_ID, BOARD_TITLE, BOARD_CONTENT, CREATED_AT, CREATED_BY, MODIFIED_AT, MODIFIED_BY from BOARD
+    </select>
+
+    <select id="findByIdToDetail" parameterType="Long" resultType="BoardDetail">
+        select BOARD.BOARD_ID, BOARD.BOARD_TITLE,
+               u1.USER_NAME as CREATED_Name,
+               u2.USER_NAME as MODIFIED_Name,
+               BOARD.MODIFIED_AT,
+               BOARD.CREATED_AT
+        FROM BOARD
+                 JOIN USER AS u1 ON BOARD.CREATED_BY = USER.USER_ID
+                 JOIN USER AS u2 ON BOARD.MODIFIED_BY = USER.USER_ID
+        WHERE BOARD.BOARD_ID = #{id}
+    </select>
+
+    <select id="existById" parameterType="Long" resultType="Boolean">
+        select exists(select * from BOARD where BOARD_ID = #{boardId})
+    </select>
+
+    <insert id="insert" parameterType="Board" keyProperty="boardId" useGeneratedKeys="true">
+        insert into BOARD (BOARD_TITLE, BOARD_CONTENT, VISIBILITY, CREATED_AT, CREATED_BY, MODIFIED_BY, MODIFEID_AT)
+        VALUES (#{boardTitle}, #{boardContent}, #{visibility}, #{createdAt}, #{createdBy}, #{modifiedBY}, #{modifiedAt})
+    </insert>
+
+    <update id="update" parameterType="Board" >
+        update BOARD set BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent},
+                         VISIBILITY = #{visibility}, CREATED_AT = #{createdAT},
+                         CREATED_BY = #{createdBy}, MODIFIED_AT = #{modifiedAt},
+                         MODFIEID_BY = #{modifiedBy}
+        WHERE BOARD_ID = #{boardId}
+    </update>
+
+    <update id="unVisible" parameterType="Long" >
+        update BOARD set VISIBILITY = 0
+        WHERE BOARD_ID = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        delete from BOARD where BOARD_ID = #{id}
+    </delete>
+
+</mapper>

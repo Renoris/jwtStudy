@@ -2,22 +2,14 @@ package study.jdnc7.homeworkproject.feature.board.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
-import study.jdnc7.homeworkproject.domain.PageInfo;
-import study.jdnc7.homeworkproject.domain.board.mapper.BoardMapper;
-import study.jdnc7.homeworkproject.feature.board.model.BoardDto;
-import study.jdnc7.homeworkproject.feature.board.model.BoardRequest;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardDto;
+import study.jdnc7.homeworkproject.feature.board.model.dto.BoardRequest;
 import study.jdnc7.homeworkproject.feature.board.service.BoardService;
 import study.jdnc7.homeworkproject.util.SecurityUtil;
-
-import java.util.List;
 
 
 @RestController
