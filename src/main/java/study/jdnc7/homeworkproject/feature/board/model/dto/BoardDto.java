@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.apache.ibatis.type.Alias;
+import study.jdnc7.homeworkproject.feature.file.model.entity.FileInfo;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -35,6 +37,7 @@ public class BoardDto {
         private Long boardId;
         private String boardTitle;
         private String boardContent;
+        private List<FileInfo> fileInfoList;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
         private Long createdByName;

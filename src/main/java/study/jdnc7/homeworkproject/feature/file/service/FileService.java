@@ -1,6 +1,10 @@
 package study.jdnc7.homeworkproject.feature.file.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -9,6 +13,7 @@ import study.jdnc7.homeworkproject.feature.file.model.entity.FileInfo;
 import study.jdnc7.homeworkproject.feature.file.model.entity.UploadFile;
 import study.jdnc7.homeworkproject.util.FileUtil;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -35,5 +40,13 @@ public class FileService {
         }
 
         return fileInfos;
+    }
+
+    @Transactional(readOnly = true)
+    public ResponseEntity<File> getFile(Long fileId) {
+        FileInfo info = fileInfoMapper.findById(fileId).orElseThrow(() -> new RuntimeException("해당 파일정보가 존재하지 않습니다."));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentDisposition(ContentDisposition.builder("attachment").filename(info.getFileOriginName()).build());
+        return new ResponseEntity<File>(new File(info.getFilePath()), headers, HttpStatus.OK);
     }
 }

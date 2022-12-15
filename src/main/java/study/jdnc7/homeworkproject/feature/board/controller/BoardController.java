@@ -11,6 +11,8 @@ import study.jdnc7.homeworkproject.feature.board.model.dto.BoardRequest;
 import study.jdnc7.homeworkproject.feature.board.service.BoardService;
 import study.jdnc7.homeworkproject.util.SecurityUtil;
 
+import java.io.IOException;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -32,15 +34,16 @@ public class BoardController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long createBoard(@ModelAttribute BoardRequest boardRequest) {
+    public Long createBoard(@ModelAttribute BoardRequest boardRequest) throws IOException {
         Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("접속하지 않은 유저입니다"));
-        return null;
+        return boardService.createBoard(userId, boardRequest);
     }
 
     @PatchMapping("/{boardId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateBoard(@PathVariable Long boardId, @ModelAttribute BoardRequest boardRequest) {
+    public void updateBoard(@PathVariable Long boardId, @ModelAttribute BoardRequest boardRequest) throws IOException {
         Long userId = SecurityUtil.getCurrentUserId().orElseThrow(() -> new RuntimeException("접속하지 않은 유저입니다"));
+        boardService.updateBoard(userId, boardId, boardRequest);
     }
 
     @PatchMapping("/unvisible/{boardId}")
