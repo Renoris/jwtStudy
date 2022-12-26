@@ -6,14 +6,14 @@
 <mapper namespace="study.jdnc7.homeworkproject.feature.board.mapper.BoardMapper">
 
     <sql id="COMMON_PAGING_HEADER">
-        select R1.* FROM(
+        select * FROM(
     </sql>
 
     <sql id="COMMON_PAGING_TAIL">
-        ) R1 LIMIT #{pageInfo.pageSize} OFFSET #{pageInfo.offset}
+        ) LIMIT #{pageSize} OFFSET #{offset}
     </sql>
 
-    <select id="findByPageInfo" parameterType="PageInfo" resultType="java.util.ArrayList">
+    <select id="findAllByPageInfo" parameterType="PageInfo" resultType="java.util.ArrayList">
         <include refid="COMMON_PAGING_HEADER"/>
         select BOARD.BOARD_ID, BOARD.BOARD_TITLE,
                u1.USER_NAME as CREATED_Name,
@@ -24,10 +24,10 @@
             JOIN USER AS u1 ON BOARD.CREATED_BY = USER.USER_ID
             JOIN USER AS u2 ON BOARD.MODIFIED_BY = USER.USER_ID
         <trim prefix="ORDER BY">
-            <if test="pageInfo.sortKey == 'createdAt' and pageInfo.direction == 'ASC'">CREATED_AT asc</if>
-            <if test="pageInfo.sortKey == 'createdAt' and pageInfo.direction == 'DESC'">CREATED_AT desc</if>
-            <if test="pageInfo.sortKey == 'boardId' and pageInfo.direction== 'ASC'">BOARD_ID asc</if>
-            <if test="pageInfo.sortKey == 'boardId' and pageInfo.direction == 'DESC'">BOARD_ID desc</if>
+            <if test="sortKey == 'createdAt' and direction == 'ASC'">CREATED_AT asc</if>
+            <if test="sortKey == 'createdAt' and direction == 'DESC'">CREATED_AT desc</if>
+            <if test="sortKey == 'boardId' and direction== 'ASC'">BOARD_ID asc</if>
+            <if test="sortKey == 'boardId' and direction == 'DESC'">BOARD_ID desc</if>
         </trim>
         <include refid="COMMON_PAGING_TAIL"/>
     </select>
@@ -53,15 +53,15 @@
     </select>
 
     <insert id="insert" parameterType="Board" keyProperty="boardId" useGeneratedKeys="true">
-        insert into BOARD (BOARD_TITLE, BOARD_CONTENT, VISIBILITY, CREATED_AT, CREATED_BY, MODIFIED_BY, MODIFEID_AT)
-        VALUES (#{boardTitle}, #{boardContent}, #{visibility}, #{createdAt}, #{createdBy}, #{modifiedBY}, #{modifiedAt})
+        insert into BOARD (BOARD_TITLE, BOARD_CONTENT, VISIBILITY, CREATED_AT, CREATED_BY, MODIFIED_BY, MODIFIED_AT)
+        VALUES (#{boardTitle}, #{boardContent}, #{visibility}, #{createdAt}, #{createdBy}, #{modifiedBy}, #{modifiedAt})
     </insert>
 
     <update id="update" parameterType="Board" >
         update BOARD set BOARD_TITLE = #{boardTitle}, BOARD_CONTENT = #{boardContent},
-                         VISIBILITY = #{visibility}, CREATED_AT = #{createdAT},
+                         VISIBILITY = #{visibility}, CREATED_AT = #{createdAt},
                          CREATED_BY = #{createdBy}, MODIFIED_AT = #{modifiedAt},
-                         MODFIEID_BY = #{modifiedBy}
+                         MODIFIED_BY = #{modifiedBy}
         WHERE BOARD_ID = #{boardId}
     </update>
 

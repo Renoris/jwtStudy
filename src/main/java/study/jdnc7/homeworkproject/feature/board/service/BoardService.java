@@ -47,10 +47,10 @@ public class BoardService {
         Board board = boardRequest.toBoardEntity(userId);
         boardMapper.insert(board);
 
-        if (board.getBoardID() == null) throw new RuntimeException("게시물이 저장되지 않았습니다.");
-        mappingBoardFiles(board.getBoardID(), list);
+        if (board.getBoardId() == null) throw new RuntimeException("게시물이 저장되지 않았습니다.");
+        mappingBoardFiles(board.getBoardId(), list);
 
-        return board.getBoardID();
+        return board.getBoardId();
     }
 
     @Transactional
@@ -59,11 +59,11 @@ public class BoardService {
         List<FileInfo> list = fileService.insertFiles(userId, boardRequest);
 
         //이미 있었던 파일 맵핑제거
-        boardFileMapper.deleteAllByBoardId(board.getBoardID());
+        boardFileMapper.deleteAllByBoardId(board.getBoardId());
 
         board.updateContent(userId, boardRequest);
         boardMapper.update(board);
-        mappingBoardFiles(board.getBoardID(), list);
+        mappingBoardFiles(board.getBoardId(), list);
     }
 
     @Transactional

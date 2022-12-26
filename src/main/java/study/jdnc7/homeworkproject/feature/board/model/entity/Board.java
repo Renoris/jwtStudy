@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Alias("Board")
 public class Board extends Base {
-    private Long boardID;
+    private Long boardId;
     private String boardTitle;
     private String boardContent;
     private boolean visibility;

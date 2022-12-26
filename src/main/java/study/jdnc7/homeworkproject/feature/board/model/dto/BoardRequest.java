@@ -1,8 +1,6 @@
 package study.jdnc7.homeworkproject.feature.board.model.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.web.multipart.MultipartFile;
 import study.jdnc7.homeworkproject.feature.board.model.entity.Board;
 import study.jdnc7.homeworkproject.feature.board.model.entity.UpdateBoard;
@@ -11,8 +9,10 @@ import study.jdnc7.homeworkproject.feature.file.model.entity.UploadFile;
 import java.util.List;
 
 @NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
+@Builder
 public class BoardRequest implements UpdateBoard, UploadFile {
     private String boardTitle;
     private String boardContent;
