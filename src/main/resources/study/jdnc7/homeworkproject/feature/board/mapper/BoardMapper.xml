@@ -4,9 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="study.jdnc7.homeworkproject.feature.board.mapper.BoardMapper">
-    <resultMap id="ResultMapBoardDetail" type="BoardDetail" autoMapping="true">
+    <resultMap id="resultMapBoardDetail" type="BoardDetail"> <!-- 수동맵핑과 오토맵핑의 차이, 왜 수동맵핑이 안될까 -->
         <id column="BOARD_ID" property="boardId"/>
         <result column="BOARD_TITLE" property="boardTitle" />
+        <result column="BOARD_CONTENT" property="boardContent" />
         <result column="CREATED_NAME" property="createdName"/>
         <result column="MODIFIED_NAME" property="modifiedName"/>
         <result column="MODIFIED_AT" property="modifiedAt"/>
@@ -50,7 +51,7 @@
         select BOARD_ID, BOARD_TITLE, BOARD_CONTENT, CREATED_AT, CREATED_BY, MODIFIED_AT, MODIFIED_BY from BOARD
     </select>
 
-    <select id="findByIdToDetail" parameterType="Long" resultMap="ResultMapBoardDetail">
+    <select id="findByIdToDetail" parameterType="Long" resultMap="resultMapBoardDetail" >
         select b.BOARD_ID AS BOARD_ID,
                b.BOARD_TITLE AS BOARD_TITLE,
                b.BOARD_CONTENT AS BOARD_CONTENT,
@@ -65,8 +66,8 @@
         FROM BOARD AS b
                  JOIN "USER" AS u1 ON b.CREATED_BY = u1.USER_ID
                  JOIN "USER" AS u2 ON b.MODIFIED_BY = u2.USER_ID
-            LEFT JOIN (SELECT f.FILE_ID, f.FILE_NAME, f.FILE_ORIGIN_NAME, f.FILE_PATH
-            FROM FILE as f LEFT JOIN BOARD_FILE as bf ON f.FILE_ID = bf.FILE_ID) AS fa ON b.BOARD_ID = fa.FILE_ID
+            LEFT JOIN (SELECT f.FILE_ID, f.FILE_NAME, f.FILE_ORIGIN_NAME, f.FILE_PATH, bf.BOARD_ID
+            FROM FILE as f LEFT JOIN BOARD_FILE as bf ON f.FILE_ID = bf.FILE_ID) AS fa ON b.BOARD_ID = fa.BOARD_ID
         WHERE b.BOARD_ID = #{id}
     </select>
 

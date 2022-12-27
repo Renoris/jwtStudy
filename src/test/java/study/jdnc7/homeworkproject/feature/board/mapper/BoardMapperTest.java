@@ -81,6 +81,4 @@ public class BoardMapperTest {
         assertThat(afterBoard.getModifiedBy()).isEqualTo(modifiedBy);
     }
 
-
-
 }
