@@ -4,30 +4,44 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="study.jdnc7.homeworkproject.feature.board.mapper.BoardMapper">
+    <resultMap id="ResultMapBoardDetail" type="BoardDetail" autoMapping="true">
+        <id column="BOARD_ID" property="boardId"/>
+        <result column="BOARD_TITLE" property="boardTitle" />
+        <result column="CREATED_NAME" property="createdName"/>
+        <result column="MODIFIED_NAME" property="modifiedName"/>
+        <result column="MODIFIED_AT" property="modifiedAt"/>
+        <result column="CREATED_AT" property="createdAt"/>
+        <collection property="fileInfoList" javaType="java.util.ArrayList" ofType="FileInfo">
+            <result property="fileId" column="FILE_ID"/>
+            <result property="fileName" column="FILE_NAME"/>
+            <result property="fileOriginName" column="FILE_ORIGIN_NAME"/>
+            <result property="filePath" column="FILE_PATH"/>
+        </collection>
+    </resultMap>
 
     <sql id="COMMON_PAGING_HEADER">
-        select * FROM(
+        select R1.* FROM (
     </sql>
 
     <sql id="COMMON_PAGING_TAIL">
-        ) LIMIT #{pageSize} OFFSET #{offset}
+        ) as R1 LIMIT #{pageSize} OFFSET #{offset};
     </sql>
 
-    <select id="findAllByPageInfo" parameterType="PageInfo" resultType="java.util.ArrayList">
+    <select id="findAllByPageInfo" parameterType="PageInfo" resultType="BoardListItem">
         <include refid="COMMON_PAGING_HEADER"/>
-        select BOARD.BOARD_ID, BOARD.BOARD_TITLE,
-               u1.USER_NAME as CREATED_Name,
-               u2.USER_NAME as MODIFIED_Name,
-               BOARD.MODIFIED_AT,
-               BOARD.CREATED_AT
-               FROM BOARD
-            JOIN USER AS u1 ON BOARD.CREATED_BY = USER.USER_ID
-            JOIN USER AS u2 ON BOARD.MODIFIED_BY = USER.USER_ID
+        select b.BOARD_ID, b.BOARD_TITLE,
+        u1.USER_NAME as CREATED_NAME,
+        u2.USER_NAME as MODIFIED_NAME,
+        b.MODIFIED_AT,
+        b.CREATED_AT
+        FROM BOARD AS b
+        JOIN "USER" AS u1 ON b.CREATED_BY = u1.USER_ID
+        JOIN "USER" AS u2 ON b.MODIFIED_BY = u2.USER_ID
         <trim prefix="ORDER BY">
-            <if test="sortKey == 'createdAt' and direction == 'ASC'">CREATED_AT asc</if>
-            <if test="sortKey == 'createdAt' and direction == 'DESC'">CREATED_AT desc</if>
-            <if test="sortKey == 'boardId' and direction== 'ASC'">BOARD_ID asc</if>
-            <if test="sortKey == 'boardId' and direction == 'DESC'">BOARD_ID desc</if>
+            <if test="sortKey == 'createdAt'">CREATED_AT asc</if>
+            <if test="sortKey == 'boardId'">BOARD_ID desc</if>
+            <if test="direction== 'ASC'">asc</if>
+            <if test="direction == 'DESC'">desc</if>
         </trim>
         <include refid="COMMON_PAGING_TAIL"/>
     </select>
@@ -36,16 +50,24 @@
         select BOARD_ID, BOARD_TITLE, BOARD_CONTENT, CREATED_AT, CREATED_BY, MODIFIED_AT, MODIFIED_BY from BOARD
     </select>
 
-    <select id="findByIdToDetail" parameterType="Long" resultType="BoardDetail">
-        select BOARD.BOARD_ID, BOARD.BOARD_TITLE,
-               u1.USER_NAME as CREATED_Name,
-               u2.USER_NAME as MODIFIED_Name,
-               BOARD.MODIFIED_AT,
-               BOARD.CREATED_AT
-        FROM BOARD
-                 JOIN USER AS u1 ON BOARD.CREATED_BY = USER.USER_ID
-                 JOIN USER AS u2 ON BOARD.MODIFIED_BY = USER.USER_ID
-        WHERE BOARD.BOARD_ID = #{id}
+    <select id="findByIdToDetail" parameterType="Long" resultMap="ResultMapBoardDetail">
+        select b.BOARD_ID AS BOARD_ID,
+               b.BOARD_TITLE AS BOARD_TITLE,
+               b.BOARD_CONTENT AS BOARD_CONTENT,
+               u1.USER_NAME AS CREATED_NAME,
+               u2.USER_NAME AS MODIFIED_NAME,
+               b.MODIFIED_AT AS MODIFIED_AT,
+               b.CREATED_AT AS CREATED_AT,
+               fa.FILE_ID AS FILE_ID,
+               fa.FILE_NAME AS FILE_NAME,
+               fa.FILE_ORIGIN_NAME AS FILE_ORIGIN_NAME,
+               fa.FILE_PATH AS FILE_PATH
+        FROM BOARD AS b
+                 JOIN "USER" AS u1 ON b.CREATED_BY = u1.USER_ID
+                 JOIN "USER" AS u2 ON b.MODIFIED_BY = u2.USER_ID
+            LEFT JOIN (SELECT f.FILE_ID, f.FILE_NAME, f.FILE_ORIGIN_NAME, f.FILE_PATH
+            FROM FILE as f LEFT JOIN BOARD_FILE as bf ON f.FILE_ID = bf.FILE_ID) AS fa ON b.BOARD_ID = fa.FILE_ID
+        WHERE b.BOARD_ID = #{id}
     </select>
 
     <select id="existById" parameterType="Long" resultType="Boolean">
@@ -73,5 +95,6 @@
     <delete id="delete" parameterType="Long">
         delete from BOARD where BOARD_ID = #{id}
     </delete>
+
 
 </mapper>

@@ -13,3 +13,10 @@ INSERT INTO BOARD(board_id, board_title, board_content, visibility, created_at, 
 values (1, 'testtitle', 'testcontent', 1, now(), 1, now(), 1),
        (2, 'testtitle2', 'testcontent2', 2, now(), 2, now(), 2);
 
+INSERT INTO File (file_id, file_name, file_origin_name, file_path)
+values (1, 'testfile', 'testoriginname', 'path1'),
+       (2, 'testfile2', 'testoriginname2', 'paht2');
+
+INSERT INTO BOARD_FILE (file_id, board_id)
+values (1, 1),
+       (2, 1);

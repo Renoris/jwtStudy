@@ -43,6 +43,8 @@ public class SecurityConfig {
     }
 
     private HttpSecurity setCustomHttpSecurity(HttpSecurity httpSecurity) throws Exception {
+        setCustomFilter(httpSecurity);
+
         setCsrfDisable(httpSecurity);
 
         setForH2Setting(httpSecurity); //h2 콘솔을 위한 설정

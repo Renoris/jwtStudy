@@ -10,6 +10,7 @@ import study.jdnc7.homeworkproject.feature.board.model.entity.Board;
 import study.jdnc7.homeworkproject.feature.common.model.PageInfo;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
@@ -19,9 +20,23 @@ public class BoardMapperTest {
     public BoardMapper boardMapper;
 
     @Test
+    public void 데이터_상세_검색시_올바르게_조회되어야한다() {
+        //given
+        Long boardId = 1L;
+
+        //when
+        Optional<BoardDto.Detail> info = boardMapper.findByIdToDetail(boardId);
+
+        //then
+        assertThat(info).isPresent();
+        assertThat(info.get().getBoardContent()).isNotNull();
+        assertThat(info.get().getModifiedAt()).isNotNull();
+    }
+
+    @Test
     public void 데이터목록_검색시_올바르게_검색되어야한다() {
         //given
-        PageInfo pageInfo = PageInfo.builder().pageSize(10).pageNum(1).build();
+        PageInfo pageInfo = PageInfo.builder().pageSize(10).pageNum(0).build();
 
         //when
         List<BoardDto.ListItem> list = boardMapper.findAllByPageInfo(pageInfo);
@@ -31,7 +46,6 @@ public class BoardMapperTest {
         assertThat(list.get(0).getBoardId()).isNotNull();
         assertThat(list.get(0).getBoardTitle()).isEqualTo("testtitle");
         assertThat(list.size()).isGreaterThanOrEqualTo(2);
-
     }
 
 
@@ -66,5 +80,7 @@ public class BoardMapperTest {
         assertThat(afterBoard.getBoardTitle()).isEqualTo(boardRequest.getBoardTitle());
         assertThat(afterBoard.getModifiedBy()).isEqualTo(modifiedBy);
     }
+
+
 
 }

@@ -12,7 +12,6 @@ import java.util.List;
 
 @Setter
 @Getter
-@Alias("BoardDto")
 public class BoardDto {
 
     @Setter
@@ -23,9 +22,9 @@ public class BoardDto {
         private Long boardId;
         private String boardTitle;
         private LocalDateTime createdAt;
-        private Long createdName;
+        private String createdName;
         private LocalDateTime modifiedAt;
-        private Long modifiedName;
+        private String modifiedName;
 
     }
 
@@ -40,7 +39,7 @@ public class BoardDto {
         private List<FileInfo> fileInfoList;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
-        private Long createdByName;
-        private Long modifiedByName;
+        private String createdName;
+        private String modifiedName;
     }
 }

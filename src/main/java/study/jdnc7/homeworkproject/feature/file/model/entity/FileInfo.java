@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Alias("File")
+@Alias("FileInfo")
 public class FileInfo extends Base {
     private Long fileId;
     private String fileName;
