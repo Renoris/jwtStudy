@@ -48,7 +48,7 @@
     </select>
 
     <select id="findById" parameterType="Long" resultType="Board">
-        select BOARD_ID, BOARD_TITLE, BOARD_CONTENT, CREATED_AT, CREATED_BY, MODIFIED_AT, MODIFIED_BY from BOARD
+        select BOARD_ID, BOARD_TITLE, BOARD_CONTENT, CREATED_AT, CREATED_BY, MODIFIED_AT, MODIFIED_BY from BOARD where BOARD_ID = #{id}
     </select>
 
     <select id="findByIdToDetail" parameterType="Long" resultMap="resultMapBoardDetail" >

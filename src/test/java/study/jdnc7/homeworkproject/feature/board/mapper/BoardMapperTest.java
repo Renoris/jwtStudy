@@ -81,4 +81,20 @@ public class BoardMapperTest {
         assertThat(afterBoard.getModifiedBy()).isEqualTo(modifiedBy);
     }
 
+    @Test
+    public void 데이터삭제시_삭제되어야한다() {
+        //given
+        Long targetId = 1L;
+
+        //when
+        Optional<Board> beforeBoard = boardMapper.findById(targetId);
+        boardMapper.delete(targetId);
+        Optional<Board> afterBoard = boardMapper.findById(targetId);
+
+        //then
+        assertThat(beforeBoard).isPresent();
+        assertThat(afterBoard).isNotPresent();
+    }
+
+
 }
